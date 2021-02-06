@@ -1,0 +1,17 @@
+{
+ 	"luci-app-arpbind": {
+ 		"description": "Grant UCI access for luci-app-arpbind",
+ 		"read": {
+			"cgi-io": [ "exec" ],
+			"file": {
+				"/lib/functions.sh" : [ "exec" ],
+				"/lib/functions/network.sh" : [ "exec" ],
+				"/etc/init.d/arpbind start" : [ "exec" ]
+			},
+ 			"uci": [ "arpbind" ]
+ 		},
+ 		"write": {
+ 			"uci": [ "arpbind" ]
+ 		}
+ 	}
+}

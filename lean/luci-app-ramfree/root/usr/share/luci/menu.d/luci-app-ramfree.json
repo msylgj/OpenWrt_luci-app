@@ -1,0 +1,12 @@
+{
+	"admin/status/release_ram": {
+		"title": "Release Ram",
+		"action": {
+			"type": "cbi",
+			"path": "release_ram"
+		},
+		"depends": {
+			"acl": [ "luci-app-ramfree" ]
+		}
+	}
+}
