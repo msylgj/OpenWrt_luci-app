@@ -38,6 +38,11 @@ end
 a.default = "br-lan"
 a.rmempty = false
 
+local e=luci.http.formvalue("cbi.apply")
+if e then
+  io.popen("/etc/init.d/arpbind start")
+end
+
 return m
 
 
