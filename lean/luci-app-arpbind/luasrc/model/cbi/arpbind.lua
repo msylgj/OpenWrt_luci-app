@@ -38,9 +38,35 @@ end
 a.default = "br-lan"
 a.rmempty = false
 
-local e=luci.http.formvalue("cbi.apply")
+local e = luci.http.formvalue("cbi.apply")
 if e then
-  io.popen("/etc/init.d/arpbind start")
+    local IPAddr = {}
+    local MACAddr = {}
+    local IFName = {}
+    local index = {}
+    for key, val in pairs(luci.http.formvalue()) do
+        local i
+        if(string.find(key,"cbid.arpbind")) then
+            i = string.sub((string.gsub(key, "cbid.arpbind.", "")), 1, string.find((string.gsub(key, "cbid.arpbind.", "")), ".", 1, true)-1)
+            local flag = true
+            for _, v in pairs(index) do
+                if i == v then
+                    flag = false
+                end
+            end
+            if flag == true then table.insert(index,i) end
+        end
+        if(string.find(key,"ipaddr")) then
+            IPAddr[i] = val
+        elseif(string.find(key,"macaddr")) then
+            MACAddr[i] = val
+        elseif(string.find(key,"ifname")) then
+            IFName[i] = val
+        end
+    end
+    for k, v in pairs(index) do
+        io.popen("ip neigh add "..IPAddr[v].." lladdr "..MACAddr[v].." nud permanent dev "..IFName[v].." || ip neigh change "..IPAddr[v].." lladdr "..MACAddr[v].." nud permanent dev "..IFName[v])
+    end
 end
 
 return m
