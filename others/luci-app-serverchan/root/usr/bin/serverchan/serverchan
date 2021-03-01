@@ -94,7 +94,7 @@ function getip(){
 		echo "$wanIP"
 	elif [ $1 == "hostipv4" ] ;then
 		[ -z "$ipv4_URL" ] && local ipv4_URL="members.3322.org/dyndns/getip"
-		[ ! -z "$ipv4_interface" ] && local hostIP=$(curl -k -s -4 ${ipv4_URL}) || local hostIP=$(curl -k -s -4 ${ipv4_URL})
+		local hostIP=$(curl -k -s -4 ${ipv4_URL})
 		echo "$hostIP"
 	elif [ $1 == "wanipv6" ] ;then
 		[ ! -z "$ipv6_interface" ] && local wanIPv6=$(ip addr show ${ipv6_interface}|grep -v deprecated|grep -A1 'inet6 [^f:]'|sed -nr ':a;N;s#^ +inet6 ([a-f0-9:]+)/.+? scope global .*? valid_lft ([0-9]+sec) .*#\2 \1#p;ta'|sort -nr|head -n1|awk '{print $2}')
@@ -102,7 +102,7 @@ function getip(){
 		echo "$wanIPv6"
 	elif [ $1 == "hostipv6" ] ;then
 		[ -z "$ipv6_URL" ] && local ipv6_URL="v6.ip.zxinc.org/getip"
-		[ ! -z "$ipv6_interface" ] && local hostIPv6=$(curl -k -s -6 ${ipv6_URL}) || local hostIPv6=$(curl -k -s -6 ${ipv6_URL})
+		local hostIPv6=$(curl -k -s -6 ${ipv6_URL})
 		echo "$hostIPv6"
 	fi
 }
