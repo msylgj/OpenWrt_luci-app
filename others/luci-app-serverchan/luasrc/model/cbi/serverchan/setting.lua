@@ -102,7 +102,7 @@ a= s:taboption("content", Value, "ipv4_URL", "URL 地址")
 a.rmempty = true
 a.default = ""
 a:depends({serverchan_ipv4="2"})
-a.description = translate("<br/>会因服务器稳定性、连接频繁等原因导致获取失败<br/>如接口可以正常获取 IP，不推荐使用<br/>默认为空时使用内置URL处理,若可正常使用不建议自定义,自定义时仅支持返回纯IP接口")
+a.description = translate("<br/>默认为空时使用内置URL处理,若可正常使用不建议自定义,自定义时仅支持返回纯IP接口<br/>会因服务器稳定性、连接频繁等原因导致获取失败<br/>如接口可以正常获取 IP，不推荐使用")
 
 a=s:taboption("content", ListValue,"serverchan_ipv6",translate("ipv6 变动通知"))
 a.rmempty = true
