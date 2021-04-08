@@ -98,8 +98,8 @@ function getip(){
 		[ -z "$ipv4_interface" ] && local wanIP=$(getinterfacelist|grep '\"address\"'|grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
 		echo "$wanIP"
 	elif [ $1 == "hostipv4" ] ;then
-		[ -z "$ipv4_URL" ] && local ipv4_URL="members.3322.org/dyndns/getip"
-		local hostIP=$(curl -k -s -4 ${ipv4_URL})
+		[ ! -z "$ipv4_URL" ] && local hostIP=$(curl -k -s -4 ${ipv4_URL})
+		[ -z "$ipv4_URL" ] && local hostIP=$(curl -s http://ddns.oray.com/checkip | awk -F ": " '{print $2}' | awk -F "\<" '{print $1}')
 		echo "$hostIP"
 	elif [ $1 == "wanipv6" ] ;then
 		[ ! -z "$ipv6_interface" ] && local wanIPv6=$(ip addr show ${ipv6_interface}|grep -v deprecated|grep -A1 'inet6 [^f:]'|sed -nr ':a;N;s#^ +inet6 ([a-f0-9:]+)/.+? scope global .*? valid_lft ([0-9]+sec) .*#\2 \1#p;ta'|sort -nr|head -n1|awk '{print $2}')
