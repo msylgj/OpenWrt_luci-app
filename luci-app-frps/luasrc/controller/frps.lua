@@ -12,17 +12,12 @@ function index()
 		return
 	end
 
-	local page = entry({"admin", "services", "frps"},
-		firstchild(), _("Frps"))
+	local page = entry({"admin", "services", "frps"}, firstchild(), _("Frps"))
 	page.order = 99
 	page.dependent = false
 	page.acl_depends = { "luci-app-frps" }
-
-	entry({"admin", "services", "frps", "common"},
-		cbi("frps/common"), _("Settings"), 1)
-
-	entry({"admin", "services", "frps", "server"},
-		cbi("frps/server"), _("Server"), 2).leaf = true
+	entry({"admin", "services", "frps", "common"}, cbi("frps/common"), _("Settings"), 1)
+	entry({"admin", "services", "frps", "server"}, cbi("frps/server"), _("Server"), 2).leaf = true
 
 	entry({"admin", "services", "frps", "status"}, call("action_status"))
 end

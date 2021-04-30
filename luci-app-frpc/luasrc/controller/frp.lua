@@ -14,8 +14,8 @@ function index()
 end
 
 function status()
-local e={}
-e.running=luci.sys.call("pidof frpc > /dev/null")==0
-luci.http.prepare_content("application/json")
-luci.http.write_json(e)
+	local e={}
+	e.running=luci.sys.call("pidof frpc > /dev/null")==0
+	luci.http.prepare_content("application/json")
+	luci.http.write_json(e)
 end
